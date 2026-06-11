@@ -1,55 +1,36 @@
-# ACLS Protocolo
+# Protocolos ACLS 2025 — versão com melhorias de UX
 
-App web (PWA) de apoio à decisão em emergências cardiovasculares, baseado nas
-diretrizes **AHA 2020** de ACLS. Pensado para uso na beira do leito: rápido,
-offline e operável com uma mão sob estresse.
+Cópia do app [`UlissesMoraes/Acls-protocol`](https://github.com/UlissesMoraes/Acls-protocol)
+com melhorias de UX aplicadas, publicada em produção via GitHub Pages.
 
-> ⚠️ Ferramenta educacional e de apoio. Não substitui o julgamento clínico nem
-> o treinamento certificado em ACLS.
+> ⚠️ Ferramenta de apoio baseada nas diretrizes AHA/ACLS 2020–2025. As decisões
+> terapêuticas são de responsabilidade exclusiva do médico assistente.
 
-## Funcionalidades
+## Melhorias de UX nesta versão
 
-- **PCR (Parada Cardiorrespiratória)**
-  - Timer de ciclos de RCP de 2 minutos com alarme sonoro, vibração e alerta visual
-  - Metrônomo de compressões a 110/min (Web Audio, precisão de agendamento)
-  - Timer de adrenalina com alerta na janela de 3–5 min
-  - Contador de choques e controle de doses de amiodarona (300 mg → 150 mg)
-  - Algoritmos por ritmo: FV/TV sem pulso × Assistolia/AESP
-  - Checklist de causas reversíveis (5H e 5T)
-  - **Registro automático do atendimento** com timestamps, copiável para o prontuário
-- **Bradicardia** — algoritmo com ramo estável/instável (atropina, marca-passo, infusões)
-- **Taquicardia** — QRS estreito × largo, cardioversão sincronizada com cargas
-- **Pós-PCR** — checklist de metas após RCE (SatO₂, PA, temperatura, cateterismo)
-- **Medicações** — referência rápida com busca (doses, indicações, observações)
-
-## Decisões de UX (app de saúde em contexto crítico)
-
-| Decisão | Justificativa |
+| Melhoria | Por quê |
 |---|---|
-| PCR acessível em 1 toque na tela inicial | Em parada, cada segundo de navegação custa caro |
-| Tema escuro de alto contraste | Plantões noturnos; WCAG AA em todos os textos |
-| Alvos de toque ≥ 48–56 px | Uso com luvas e sob tremor de adrenalina |
-| Alertas redundantes (som + vibração + animação) | Salas de emergência são ruidosas |
-| Wake lock durante a PCR | A tela não pode apagar no meio do atendimento |
-| Offline-first (service worker) | Emergência não pode depender de Wi-Fi |
-| Registro automático com timestamps | Reduz carga cognitiva do anotador; auditável |
-| Cores com semântica clínica fixa | Vermelho=PCR/instável, âmbar=atenção, verde=estável |
-| Sem login, sem onboarding | Zero fricção entre abrir o app e agir |
+| ⏱ **Timer de RCP** no protocolo de PCR (ciclos de 2 min, metrônomo 110/min, controle de adrenalina 3–5 min e choques) | Tira a carga cognitiva de cronometrar durante a parada; alarme sonoro + vibração ao fim do ciclo |
+| 💓 **Botão flutuante "PCR"** em todas as telas | Em parada, cada segundo de navegação custa caro — acesso em 1 toque |
+| ⚖️ **Peso global do paciente** | Digitado uma vez no cabeçalho do protocolo, vale para todas as calculadoras de dose |
+| 💾 **Persistência** (checklist + peso em localStorage) | Refresh acidental não perde o progresso do atendimento |
+| ◀️ **Gesto/botão voltar do navegador** | Antes saía do site; agora fecha o protocolo (essencial no mobile) |
+| 🔗 **Deep-link** (`#pcr`, `#sepse`…) | Recarregar ou compartilhar a URL reabre o protocolo |
+| 📖 **Expandir/recolher todas as etapas** | Leitura contínua da cascata sem abrir passo a passo |
+| ♿ **Acessibilidade** | `aria-expanded`/`aria-pressed`, alvos de toque maiores, scroll ao topo ao abrir protocolo, tela não apaga durante a RCP (wake lock) |
 
-## Como rodar
-
-É um app estático — basta servir os arquivos:
+## Desenvolvimento
 
 ```bash
-npx serve .
-# ou
-python3 -m http.server 8080
+npm install
+npm run dev      # desenvolvimento
+npm run build    # produção (dist/)
 ```
 
-Abra no navegador e, no celular, use "Adicionar à tela inicial" para instalar
-como PWA (funciona offline após a primeira visita).
+O deploy em produção é automático a cada push (GitHub Actions → GitHub Pages).
 
-## Stack
+## Como aplicar no repositório original
 
-HTML + CSS + JavaScript puros, sem dependências nem build. Service worker para
-cache offline e manifest para instalação como app.
+As melhorias estão concentradas em `src/App.jsx`. Para levar ao
+`Acls-protocol`, basta substituir o conteúdo de `src/App.jsx` lá pelo
+arquivo desta versão.
