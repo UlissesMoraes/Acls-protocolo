@@ -1,0 +1,19 @@
+{
+  "name": "ACLS Protocolo",
+  "short_name": "ACLS",
+  "description": "Algoritmos ACLS, timer de RCP e doses de medicações para emergências cardiovasculares.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
